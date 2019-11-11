@@ -41,21 +41,21 @@ Data_new1 = scaler.fit_transform(Data_new)
 
 
 # "elbow" of the line
-# ks = range(1, 10)
-# inertias = []
-#
-# for k in ks:
-#     model = KMeans(n_clusters=k)
-#     model.fit(Data_new)
-#     inertias.append(model.inertia_)
-#
-# plt.figure(figsize=(8,5))
-# plt.style.use('bmh')
-# plt.plot(ks, inertias, '-o')
-# plt.xlabel('Number of clusters, k')
-# plt.ylabel('Inertia')
-# plt.xticks(ks)
-# plt.show()
+ks = range(1, 10)
+inertias = []
+
+for k in ks:
+    model = KMeans(n_clusters=k)
+    model.fit(Data_new)
+    inertias.append(model.inertia_)
+
+plt.figure(figsize=(8,5))
+plt.style.use('bmh')
+plt.plot(ks, inertias, '-o')
+plt.xlabel('Number of clusters, k')
+plt.ylabel('Inertia')
+plt.xticks(ks)
+plt.show()
 
 
 # calinski_harabaz_score & silhouette_score
@@ -119,18 +119,6 @@ Labels_binary = np.array(Labels_binary.astype(int))
 # plt.show()
 #
 
-# pca = PCA(random_state=123)
-# pca.fit(Data_new)
-# features = range(pca.n_components_)
-#
-# plt.figure(figsize=(8,4))
-# plt.bar(features[:15], pca.explained_variance_[:15], color='lightskyblue')
-# plt.xlabel('PCA feature')
-# plt.ylabel('Variance')
-# plt.xticks(features[:15])
-# plt.show()
-#
-
 def pca_transform(n_comp):
     pca = PCA(n_components=n_comp, random_state=123)
     global Data_reduced
@@ -140,29 +128,3 @@ def pca_transform(n_comp):
 pca_transform(n_comp=1)
 
 k_means(n_clust=2, data_frame=Data_reduced, true_labels=Labels_binary)
-
-
-
-
-
-
-
-# virsulization
-# model_kmeans=KMeans(n_clusters=2, random_state=123, n_init=30)  #建立模型对象
-# model_kmeans.fit(Data_reduced)    #训练聚类模型
-# y_pre=model_kmeans.predict(Data_reduced)   #预测聚类模型
-# print(y_pre)
-# centers = model_kmeans.cluster_centers_  # 类别中心
-# print(centers)
-#
-# colors = ['red', 'violet', 'blue', 'yellow', 'magenta', 'orange']
-# plt.figure()
-#
-# for j in range(2):
-#     index_set = np.where(y_pre == j)
-#     cluster = Data_reduced.iloc[index_set]
-#     cluster = Data_reduced[index_set]
-#     plt.scatter(cluster.iloc[:, 0], cluster.iloc[:, 1],c=colors[j], marker='.')
-#     plt.plot(centers[j][0], centers[j][1], 'o', markerfacecolor=colors[j], markeredgecolor='k',
-#              markersize=8)  # 画类别中心
-# plt.show()
